@@ -1,6 +1,6 @@
 <?php
 date_default_timezone_set("Asia/Taipei");
-$dsn="mysql:host=localhost;charset=utf8;dbname=member";
+$dsn="mysql:host=localhost;charset=utf8;dbname=material";
 $pdo=new PDO($dsn,'root','');
 session_start();
 
@@ -23,7 +23,7 @@ function all($table = null, $where = '', $other = '')
             $sql .= " $where";
         }
         $sql .= $other;
-        $rows = $pdo->query($sql)->fetchAll();
+        $rows = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
         return $rows;
     } else {
         echo "錯誤:沒有指定的資料表名稱";
@@ -49,7 +49,7 @@ function total($table, $id)
         echo "錯誤:參數的資料型態必須是數字或陣列";
     }
     // echo 'find=>' . $sql;
-    $row = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
+    $row = $pdo->query($sql)->fetchColumn();
     return $row;
 }
 
@@ -116,7 +116,7 @@ function insert($table, $values)
     $cols = "(`" . join("`,`", array_keys($values)) . "`)";
     $vals = "('" . join("','", $values) . "')";
 
-    $sql = $sql . $cols . "values " . $vals;
+    $sql = $sql . $cols . " values " . $vals;
 
     return $pdo->exec($sql);
 }

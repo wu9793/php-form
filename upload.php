@@ -19,11 +19,18 @@
 <body>
  <h1 class="header">檔案上傳練習</h1>
  <!----建立你的表單及設定編碼----->
+ <?php
 
-<form action="./api/upload.php" method="post" enctype="multipart/form-data">
+if(isset($_GET['err'])){
+    echo $_GET['err'];
+}
+
+?>
+
+ <form action="./api/upload.php" method="post" enctype="multipart/form-data">
 
 <input type="file" name="img" id="">
-<input type="text" name="" value="描述">
+<input type="text" name="desc" value="" placeholder="請輸入檔案描述">
 <input type="submit" value="上傳">
 </form>
 
